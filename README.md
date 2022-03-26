@@ -3,6 +3,7 @@
 - [grep 用例](#grep-用例)
   - [常用选项参数](#常用选项参数)
   - [用例](#用例)
+    - [匹配字符串所在行，最基本，字符串检索，行位单位显示](#匹配字符串所在行最基本字符串检索行位单位显示)
     - [递归当前目录所有文件内容，显示匹配字符串](#递归当前目录所有文件内容显示匹配字符串)
     - [与find结合，过滤特定文件，模糊搜索](#与find结合过滤特定文件模糊搜索)
     - [反向查找，显示所有不匹配的内容](#反向查找显示所有不匹配的内容)
@@ -25,8 +26,22 @@ grep (Globally search a Regular Expression and Print)
 * -n, --line-number 显示匹配内容所在行
 * -r, --recursive 递归检索
 * -i, --ignore-case 忽略大小写
+* -v, --invert-match 反向匹配
+* -H, --with-filename 显示文件名
 
 ## 用例
+
+### 匹配字符串所在行，最基本，字符串检索，行位单位显示
+
+```
+grep processor /proc/cpuinfo
+
+grep "processor" /proc/cpuinfo
+
+grep 'processor' /proc/cpuinfo
+```
+
+![20220326_200324_73](image/20220326_200324_73.png)
 
 ### 递归当前目录所有文件内容，显示匹配字符串
 
@@ -104,6 +119,48 @@ find ./ -name "*.h" |xargs -i grep -n --with-filename --color=auto "#define TRAC
 ![20220320_205431_20](image/20220320_205431_20.png)
 
 ![20220320_205449_16](image/20220320_205449_16.png)
+
+
+### 正则匹配
+
+* 匹配0次或多次
+
+```
+grep 'bogo*' cpuinfo
+
+grep "bogo*" cpuinfo
+
+grep bogo* cpuinfo
+```
+
+![20220326_200845_51](image/20220326_200845_51.png)
+
+* 匹配除了换行符之外的所有字符，非0个
+
+```
+grep .endor_id cpuinfo
+```
+![20220326_201038_72](image/20220326_201038_72.png)
+
+```
+grep 'bog..ps' cpuinfo
+```
+
+![20220326_201525_47](image/20220326_201525_47.png)
+
+* 匹配特殊字符
+
+```
+grep '99[.]996' cpuinfo
+```
+
+![20220326_201327_14](image/20220326_201327_14.png)
+
+
+
+
+
+
 
 
 
